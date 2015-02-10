@@ -175,20 +175,4 @@ class backUpDatabases {
 		}
 		return $allTables;
 	}
-	function letsDumpIt(){
-		foreach($this->allDatabases as $k => $v){ //yes this will break if there is only one database.
-			if($this->typeOfBackUp != 0){
-				$this->getTablesFromDB($v);
-				mkdir($this->pathToSaveDirectory."/".$v);
-				foreach($this->currentTables as $key => $value){
-				echo $v." ".$value."\n";
-					exec($this->pathTomysqldump.' --user '.$this->mysqlUser.' --password='.$this->mysqPassword.' --host='.$this->server.' '.$v.' '.$value.'> '.$this->pathToSaveDirectory."/$v/$value".'.sql');
-					$this->zipEmUp($this->pathToSaveDirectory."/$v/$value".'.sql');
-				}
-			}
-			echo $v."\n";	
-					exec($this->pathTomysqldump.' --user '.$this->mysqlUser.' --password='.$this->mysqPassword.' --host='.$this->server.' '.$v.'> '.$this->pathToSaveDirectory."/$v".'.sql');
-			$this->zipEmUp($this->pathToSaveDirectory."/$v".'.sql');
-		}
-	}
 }
